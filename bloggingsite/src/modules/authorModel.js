@@ -1,12 +1,13 @@
 const mongoose=require("mongoose");
-const validator=require("mongoose-type-email");
 const authorSchema=new mongoose.Schema({
     fname:{
         type:String,
+        trim:true,
         required:true
     },
     lname:{
         type:String,
+        trim:true,
         required:true
     },
     title:{
@@ -15,7 +16,7 @@ const authorSchema=new mongoose.Schema({
         required:true
     },
     email:{
-        type:validator,
+        type:String,
         required:true,
         unique:true
     
@@ -24,6 +25,6 @@ const authorSchema=new mongoose.Schema({
         type:String,
         required:true
     }
- });
+},{timestamps:true});
 
  module.exports=mongoose.model("firstAuthor",authorSchema)

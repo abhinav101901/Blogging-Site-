@@ -3,10 +3,12 @@ const objectId= mongoose.Schema.Types.ObjectId
 const bloggSchema=new mongoose.Schema({
     title : {
         type:String,
+        trim:true,
         required:true
     },
     body:{
         type:String,
+        trim:true,
         required:true
     },
     authorId:{
@@ -16,6 +18,7 @@ const bloggSchema=new mongoose.Schema({
     tags:[String],
     category:{
         type:String,
+        trim:true,
         required:true
     },
     subcategory:[String],
@@ -38,4 +41,4 @@ const bloggSchema=new mongoose.Schema({
 module.exports=mongoose.model("blogg",bloggSchema);
 
 
-// title,category, body authorId
+// title,category, body, authorId
