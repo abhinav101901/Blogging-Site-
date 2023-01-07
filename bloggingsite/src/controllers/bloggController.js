@@ -73,6 +73,8 @@ const updateBlog = async function(req, res) {
 
         let final = {isDeleted: false,isPublished: true, publishedAt: Date.now()}
         const data = req.params.blogId
+        if(idcheck(data)) return res.status(404).send({status:false,msg:"ID Incorrect"});
+
         const { title, body, tags, subcategory } = req.body
         
         if (Object.keys(req.body).length === 0) return res.status(400).send({ status: false, msg: "Please enter details for updating" })
@@ -149,6 +151,7 @@ if(subcategory){
 const deletById=async function(req,res){
     try{    
     let blogid=req.params.blogId;
+    if(idcheck(blogid)) return res.status(404).send({status:false,msg:"ID Incorrect"});
 
     let id= await blogModel.findById(blogid);
     if(!id) return res.status(404).send({status:false,msg:"Blogg not found"})
