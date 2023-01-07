@@ -6,16 +6,20 @@ const createAuthor=async function(req,res){
   try {
     let data=req.body;
 
-    let fname=data.fname.trim().split(" ").join("");
-    let lname=data.lname.trim().split(" ").join("");
-    data.fname=fname;
-    data.lname=lname;
+//     let fname=data.fname.trim().split(" ").join("");
+//     let lname=data.lname.trim().split(" ").join("");
+//     data.fname=fname;
+//     data.lname=lname;
 
     if (!req.body.fname || !req.body.lname || !req.body.title|| !req.body.email || !req.body.password ) {
         return res.status(400).send({ status: false, msg: "Please provide details" })
     }
 
     if(!validator.isAlpha(data.fname)||!validator.isAlpha(data.lname))  return res.status(400).send({status:false,msg:"invalid name"})
+    
+     if (req.body.title != "Mr" && req.body.title != "Mrs" && req.body.title != "Miss") {
+            return res.status(400).send({ status: false, Error: "Invalid Title - The title should be in [Mr / Mrs / Miss]" })
+        }
      
     if(!(validator.isEmail(req.body.email))) return res.status(400).send({status:false,msg:"please put a valid email"})
 
@@ -30,8 +34,9 @@ const createAuthor=async function(req,res){
      res.status(201).send({status:true,data:setData});
 }catch(error){
     res.status(500).send({status:false,msg:error.message})
-}
-}
+}}
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 
 const login = async(req, res) => {
   try {
