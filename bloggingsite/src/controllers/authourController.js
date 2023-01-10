@@ -17,16 +17,14 @@ const createAuthor=async function(req,res){
 
     if(!validator.isAlpha(data.fname)||!validator.isAlpha(data.lname))  return res.status(400).send({status:false,msg:"invalid name"})
     
-//      if (req.body.title != "Mr"  req.body.title != "Mrs" && req.body.title != "Miss") {
-//             return res.status(400).send({ status: false, Error: "Invalid Title - The title should be in [Mr / Mrs / Miss]" })
-//         }
+    if(!(["Mr","Mrs","Miss"].includes(data.title)))  return res.status(400).send({status:false,msg:"please provide a valid title eg Mr,Mrs,Miss  "})
      
     if(!(validator.isEmail(req.body.email))) return res.status(400).send({status:false,msg:"please put a valid email"})
 
     let checkEmail=await author.findOne({email:data.email})
     if(checkEmail) return res.status(400).send({status:false,result:"email already exists"})
 
-    if(!(data.password.length > 8 && data.password.length < 12)) return res.status(400).send({status:false,msg:"Please Give Max 8 or Min 12 length password"})
+    //if(!(data.password.length > 8 && data.password.length < 12)) return res.status(400).send({status:false,msg:"Please Give Max 8 or Min 12 length password"})
      
     if (!validator.isStrongPassword(data.password)) return res.status(400).send({ status: false, msg: "Kindly use atleast one uppercase alphabets, numbers and special characters for strong password." })
 
